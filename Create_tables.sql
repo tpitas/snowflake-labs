@@ -45,13 +45,21 @@ WITH ord AS (SELECT DISTINCT o_custkey FROM orders)
 SELECT cu.* FROM snowflake_sample_data.tpch_sf1.customer cu
 INNER JOIN ord ON cu.c_custkey = ord.o_custkey;
 
--- Dealing with inner joins
+-- Dealing with joins
 SELECT ord.o_orderkey, ord.o_orderstatus, ord.o_orderdate, 
 cu.c_name
 FROM orders ord 
 INNER JOIN customer cu
 ON ord.o_custkey = cu.c_custkey
 LIMIT 5;
+
+SELECT n_name AS nation_name, COUNT(*) AS number_of_suppliers
+FROM supplier su
+JOIN nation na
+ON su.s_nationkey = na.n_nationkey
+GROUP BY n_name
+ORDER BY n_name
+;
 
 -- Dealing with sets
 -- Union
